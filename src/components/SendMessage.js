@@ -3,7 +3,7 @@ import {Input,Button} from '@mui/material';
 // import { useAuthState } from 'react-firebase-hooks/auth';
 import {db, login} from '../firebase'
 import {serverTimestamp,addDoc, collection } from "firebase/firestore";
-import Chat from '../components/Chat'
+
 
 function SendMessage() {
     
@@ -11,10 +11,10 @@ function SendMessage() {
 
     async function sendMessage(e){
         e.preventDefault()
-        const {uid, photoURL} = login.currentUser
+        const {uid, photoURL,displayName } = login.currentUser
 
         await addDoc(collection(db, "messages"), {
-            text: msg,
+            discordname: displayName,
             photoURL: photoURL,
             uid: uid,
             createdAt: serverTimestamp()
@@ -29,14 +29,13 @@ function SendMessage() {
 
     return (
         <div>
-            <Chat/>
             <form onSubmit={sendMessage}>
                 <div className="sendMsg">
                     <Input  type="text" value={msg} onChange={e => setMsg(e.target.value)} />
                     <Button type="submit">Send</Button>
                 </div>
             </form>
-
+           
         </div>
     )
 }

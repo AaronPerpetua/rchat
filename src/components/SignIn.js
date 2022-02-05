@@ -8,8 +8,6 @@ import { signInWithPopup } from '@firebase/auth';
 
 
 
-
-
 function SignIn() {
     function signInWithGoogle(){
     
